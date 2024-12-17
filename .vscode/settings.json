@@ -1,0 +1,4 @@
+{
+    "liveshare.anonymousGuestApproval": "accept",
+    "python.pythonPath": "venv\\Scripts\\python.exe"
+}

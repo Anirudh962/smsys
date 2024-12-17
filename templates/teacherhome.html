@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <title>HOME</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    * {font-family: "Lato", sans-serif;}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif;}
+    .fa-anchor,.fa-coffee {font-size:200px;}
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Teacher Home</a>
+    <a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Logout</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:40px 16px">
+  <h1 class="w3-margin w3-jumbo">TEACHER HOME</h1>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+        <form action="#" method="post">
+            {% csrf_token %}
+            <h4>Student Details</h4>
+            <input type="text" name="add-student" hidden>
+            Username : <input type="text" name="username" id="" required><br><br>
+            Password : <input type="password" name="password" id="" required><br><br>
+            Father name : <input type="text" name="f-name" id="" required><br><br>
+            Mother name : <input type="text" name="m-name" id="" required><br><br>
+            Rollno : <input type="number" name="rollno" id="" required><br><br>
+            DOB : <input type="date" name="dob" id="" required><br><br>
+            <button type="submit">Add student</button>
+          </form>
+          <h1>Add Marks</h1>
+          <form action="#" method="post">
+            {% csrf_token %}
+            <input type="text" name="add-marks" hidden>
+            <h4>Pick Student: </h4>
+            <select name="student" id="">
+              {% for student in students %}
+              <option value="{{student.user.username}}">{{ student.user.username }}</option>
+              {% endfor %}
+            </select>
+            <div>
+                <h4>Student Marks</h4>
+                Term 1 : <input type="number" name="term1" id="" required min=0 max=100>
+                Term 2 : <input type="number" name="term2" id="" required min=0 max=100>
+                Final : <input type="number" name="final" id="" required min=0 max=100>
+            </div>
+            <br>
+          <button type="submit">Add Marks</button>
+            <br><br>
+            
+          </form>
+          <h1>Change Student Details</h1>
+          <form action="#" method="POST">
+              {% csrf_token %}
+            <input type="text" name="change-marks" hidden>
+            <h4>Pick Student: </h4>
+            <select name="student" id="">
+              {% for student in students %}
+              <option value="{{student.user.username}}">{{ student.user.username }}</option>
+              {% endfor %}
+            </select>
+            <h4>Pick Exam: </h4>
+            <select name="exam" id="">
+              <option value="Term1">Term 1</option>
+              <option value="Term2">Term 2</option>
+              <option value="Finals">Final</option>
+            </select>
+            <br><br>
+            <h4>Marks:</h4>
+            <input type="number" name="marks" id="" min=0 max=100>
+            <br><br><br>
+            <button type="submit">Change Marks</button>
+          </form>
+          
+          ALL STUDENT DETAILS : <br>
+          {% for student in students %}
+              Name : {{student.user.username}} Rollno : {{student.rollno}} 
+              <br>
+          {% endfor %}
+          
+        </div>  </div>  </div>  
+        <br>
+        <br>
+</body>
+</html>
