@@ -1,10 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import StudentDetails
-from .models import TeacherDetails
-from .models import Term1
-from .models import Term2
-from .models import Finals
+from .models import FacultyDetails
+from .models import HODDetails
+from .models import AdminDetails
 from .models import User
 from django.contrib.auth import authenticate,get_user_model,login,logout
 from django.contrib.auth.hashers import make_password
@@ -12,16 +10,16 @@ from django.contrib.auth.hashers import make_password
 def base(request):
     return render(request, 'base.html')
 
-def login_s(request):
+def login_f(request):
     if request.method == 'POST':
         data = request.POST
         username = data['username']
         password = data['password']
-        student = authenticate(username=username,password=password)
-        if student is None:
+        faculty = authenticate(username=username,password=password)
+        if faculty is None:
             return render(request,'login.html', {'error':'wrong username, password'})
         else:
-            login(request,student)
+            login(request,faculty)
             return redirect('home')
     return render(request,"login.html")
 
