@@ -21,13 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/',views.base,name="base"),
     path('login/',views.login_f,name="login"),
-    path('teacherlogin/',views.login_t,name="teacherlogin"),
-    path('teacherhome/',views.teacherhome,name='teacherhome'),
+    path('login_hod/',views.login_hod,name="login_hod"),
+    path('adminlogin/',views.adminlogin,name='adminlogin'),
     path('home/',views.home,name="home"),
-    path('term1/',views.term1,name="term1"),
-    path('term2/',views.term2,name="term2"),
-    path('finals/',views.finals,name="finals"),
-    path('reportcard/',views.reportcard,name="reportcard"),
-    path('principalhome/',views.principalhome,name="principalhome"),
     path('logout/', views.logout, name="logout")
 ]
