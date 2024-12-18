@@ -73,11 +73,11 @@ def hod_home(request):
 
 def home(request):
     user = request.user
-    student_id = user.id
+    faculty_id = user.id
     #username=form.cleaned_data.get('username')
-    student_object = User.objects.get(id=student_id)
-    student_details = FacultyDetails.objects.get(user=student_object)
-    return render(request,'home.html',{'student':student_details})
+    faculty_object = User.objects.get(id=faculty_id)
+    faculty_details = FacultyDetails.objects.get(user=faculty_object)
+    return render(request,'home.html',{'faculty':faculty_details})
     
 @login_required(login_url='s_manage:login')
 def logout_view(request):
