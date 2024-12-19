@@ -28,12 +28,14 @@ def login_hod(request):
         data = request.POST
         username = data['username']
         password = data['password']
-        teacher = authenticate(username=username,password=password)
-        if teacher is None:
+        hod = authenticate(username=username,password=password)
+        if hod is None:
             return render(request,'login.html', {'error':'wrong username, password'})
         else:
-            login(request,teacher)
-            return render(request,'hodhome.html')
+            login(request,hod)
+            hod_user_object = User.objects.get(username=username)
+            hod_details = HODDetails.objects.get(HOD=hod_user_object)
+            return redirect('hod_home')
     return render(request,"login.html")
 
 def adminlogin(request):
@@ -46,43 +48,44 @@ def adminlogin(request):
             return render(request,'login.html', {'error':'wrong username, password'})
         else:
             login(request,adminn)
-            return render(request,'AdminHome.html')
+            return redirect('adminnhome')
     return render(request,"login.html")
 
-
+@login_required
 def logout(request):
     return redirect('base')
     
 @login_required
 def adminnhome(request):
-    return render(request,"AdminHome.html")
+    usera = request.user
+    admin_id = usera.id
+    #username=form.cleaned_data.get('username')
+    admin_object = User.objects.get(id=admin_id)
+    admin_details = AdminDetails.objects.get(Admin=admin_object)
+    return render(request,'AdminHome.html',{'Admin':admin_details})
    
 
 @login_required  
 def hod_home(request):
-    if request.method == 'POST':
-        teacher = request.user
-        teacher_profile = HODDetails.objects.get(HOD=teacher)
-        teacher_subject = teacher_profile.subject
-        data = request.POST
-        return redirect('hod.html')
-    else:
-        faculty = FacultyDetails.objects.all().order_by('faculty')
-        return render(request,'hodhome.html', {'faculty':faculty})
+    hod = request.user
+    hod_id = hod.id
+    hod_object = User.objects.get(id=hod_id)
+    hod_profile = HODDetails.objects.get(HOD=hod_object)
+    return render(request,'hodhome.html',{'HOD':hod_profile})
     
-
+@login_required
 def home(request):
     user = request.user
     faculty_id = user.id
     #username=form.cleaned_data.get('username')
     faculty_object = User.objects.get(id=faculty_id)
-    faculty_details = FacultyDetails.objects.get(user=faculty_object)
+    faculty_details = FacultyDetails.objects.get(faculty=faculty_object)
     return render(request,'home.html',{'faculty':faculty_details})
     
-@login_required(login_url='s_manage:login')
-def logout_view(request):
-    logout(request)
-    return redirect('myaccounts:home')
+# @login_required(login_url='s_manage:login')
+# def logout_view(request):
+#     logout(request)
+#     return redirect('myaccounts:home')
 
 
 # @login_required    

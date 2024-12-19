@@ -23,6 +23,8 @@ urlpatterns = [
     path('login/',views.login_f,name="login"),
     path('login_hod/',views.login_hod,name="login_hod"),
     path('adminlogin/',views.adminlogin,name='adminlogin'),
+    path('adminnhome/',views.adminnhome,name="adminnhome"),
+    path('hod_home/',views.hod_home,name="hod_home"),
     path('home/',views.home,name="home"),
     path('logout/', views.logout, name="logout")
 ]
